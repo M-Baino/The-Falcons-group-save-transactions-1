@@ -58,16 +58,11 @@ class App extends Component {
       <>
       <BrowserRouter>
         <Route exact path="/" component={Home} state={this.state}/>
-        {/* <Route path="/dash" component={()=> <DashboardPage  userInfo={this.state.users} vehicleInfo={this.state.vehicleINFO} selectedDetails={this.selectedDetails} ></DashboardPage>}></Route> */}
-        <Route path="/dash/:id" component={DashboardPage} />
-
-        {/* <Route path="/dash/" component={()=> <DashboardPage  userInfo={this.state.users} vehicleInfo={this.state.vehicleINFO} selectedDetails={this.selectedDetails} ></DashboardPage>}></Route> */}
-        {/* <Route path= "/details" component={()=> <DetailsPage  key={this.state.selectedDetails} vehicleInfo={this.state.selectedDetails}/>}></Route> */}
-        <Route path= "/details" component={DetailsPage}/>
-
-   <Route path="/auth" component={()=> <AuthPage key={this.state.users.id} userInfo={this.state.users}></AuthPage>}></Route>
+        <Route path="/dash" component={DashboardPage} />
+        <Route path="/auth" component={()=> <AuthPage key={this.state.users.id} userInfo={this.state.users}></AuthPage>}></Route>
         <Route path="/login" component={LoginPage}></Route>
         <Route path="/register" component={RegisterPage}></Route>
+        <Route path="/details" component={DetailsPage}></Route>
         <Route path="/vehicleInfoForm" component={VehicleInfoForm}></Route>
       </BrowserRouter>
       </>
