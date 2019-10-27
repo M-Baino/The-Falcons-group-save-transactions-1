@@ -1,6 +1,6 @@
 // import React, { Component } from 'react';
 // import Router from '../src/components/Router';
-
+import Auth, {  } from "./components/forms/auth";
 import React, { Component } from 'react';
 import DashboardPage from "./components/dashboard/DashboardPage"
 import { BrowserRouter, Route, Link } from "react-router-dom";
@@ -56,6 +56,7 @@ class App extends Component {
       // </>
 
       <>
+      <Auth />
       <BrowserRouter>
         <Route exact path="/" component={Home} state={this.state}/>
         <Route path="/dash" component={DashboardPage} />
