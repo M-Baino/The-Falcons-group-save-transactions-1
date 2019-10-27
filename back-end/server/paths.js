@@ -7,8 +7,7 @@ var db = require('../database/database');
 paths.post("/login", (req, res) => {
     let emailAndPassword = req.body;
     // console.log(req.body);
-    db.login((user , userID) => {let allData = {transactionData:user,userID};
-     res.send(allData) }, emailAndPassword);
+    db.login((userID) => {res.send(userID)}, emailAndPassword);
     // console.log("Login")
 })
 
@@ -27,7 +26,8 @@ paths.put("/editUser/:id", (req, res) => {
 
 paths.post("/addTransaction/:userId", (req, res) => {
     // Add Code Here To Edit Database
-    db.addTransaction((response) => { res.send(response) }, req.body, req.params.userId)
+    // db.addTransaction((response) => { res.json(response) }, req.body, req.params.userId)
+    db.addTransaction((response) => { res.json(response) }, req.body, req.params.userId)
 
 })
 

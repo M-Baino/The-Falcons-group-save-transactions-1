@@ -1,11 +1,11 @@
 import React, { Component } from "react";
 import {Redirect} from 'react-router-dom'
 import axios from 'axios';
+import cookie from "react-cookies";
 export default class VehicleInfoForm extends Component {
   state = {
     
     
-    id: null,
     make: "",
     model: "",
     year: "",
@@ -31,7 +31,7 @@ export default class VehicleInfoForm extends Component {
       }
     ,
     //data for controlling display (cash/trade) input fields
-    both: 0,
+    // both: 0,
     tradeStyle: "none",
     cashStyle: "block"
   };
@@ -82,15 +82,20 @@ export default class VehicleInfoForm extends Component {
   changeBoth = bothValue => {
     this.setState({ both: bothValue.target.value });
   };
+
   addTransaction=()=>{
-    axios.post(`http://localhost:3020/addTransaction/${this.props.location.state}`,this.state).then((response)=>
+    axios.post(`http://localhost:3020/addTransaction/${cookie.load("isLoggedIn")}`,this.state).then((response)=>
     {
-      // <Redirect to={{pathname:"/dash"}} />
-      console.log(response.data)
+      // console.log(response.data)
+      this.props.history.push('/dash')
       
     });
+  
+    // console.log(this.props)
+    // console.log(this.state);
 
-    console.log(this.props.location)
+    // this.props.history.push(path);
+    // console.log(this.props.location)
   }
 
 
@@ -126,7 +131,6 @@ export default class VehicleInfoForm extends Component {
     return (
       <React.Fragment>
         <div>VehicleInfoForm</div>
-        {/* <form> */}
           <label>Make</label>
           <input name="make" onChange={this.formOnChangeHandler} type="text" placeholder="Car manufacturer"  />
           <br />
@@ -173,13 +177,12 @@ export default class VehicleInfoForm extends Component {
             </div>
             <div style={{ display: this.state.cashStyle }}>
               <label>Price</label>
-              <input onChange={this.formOnChangeHandler.bind(this,{ additionalInformation: { paymentMethod: { both: 0,cash: "" }} })} type="text"  />
+              <input onChange={this.formOnChangeHandler} type="text"  />
             </div>
           </div>
           <br />
-          {console.log(this.props.location.state)}
           <button onClick={this.addTransaction}>Submit</button>
-        {/* </form> */}
+
       </React.Fragment>
     );
   }

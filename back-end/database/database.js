@@ -91,17 +91,17 @@ let updateUser = (callback, userInfo, id) => {
 
 //Login Function
 let login = (callback, userInfo) => {
+    console.log(userInfo);
     users.findOne({ email: userInfo.email, password: userInfo.password }, (error, response) => {
         if (error) {
             console.log(error)
         }
         else {
-            if (response !== null) {
-                getTransactions(callback, response._id);
+            if(response!== null){
+                // getTransactions(callback, response._id);
+                callback(response._id)
             }
-            else {
-                callback("Invalid Email Or Passwprd");
-            }
+     
 
 
         }
@@ -110,29 +110,55 @@ let login = (callback, userInfo) => {
 
 
 //Add Transaction
-let addTransaction = (callBack, data, id) => {
-    transactions = new transactions(
-        {
-            make: data.make,
-            model: data.model,
-            year: data.year,
-            licensePlate: data.licensePlate,
-            vinNumber: data.vinNumber,
-            color: data.color,
-            engine: data.engine,
-            uploadRegestrationID: data.uploadRegestrationID,
-            additionaInformation: data.additionalInfo,
-            transactionOwner: id,
+let addTransaction = ( callBack , data, id) => {
+    
+    // transactions = new transactions(
+        // let tranData = {data , transactionOwner:id}
+        data.transactionOwner = id;
+        console.log(data);
 
-        });
-    transactions.save((error, response) => {
-        if (error) {
+    let a = transactions.insertMany([data] , (error , response)=>
+    {
+    
+        if(error)
+        {
             console.log(error);
         }
-        else {
-            callBack(response);
-        }
+        callBack("Done Add");
+        
+
     })
+
+
+    
+        // test = new transactions(
+
+        // {
+        //     make: data.make,
+        //     model: data.model,
+        //     year: data.year,
+        //     licensePlate: data.licensePlate,
+        //     vinNumber: data.vinNumber,
+        //     color: data.color,
+        //     engine: data.engine,
+        //     uploadRegestrationID: data.uploadRegestrationID,
+        //     additionaInformation: data.additionalInfo,
+        //     transactionOwner: id
+
+        // });
+    // test.save((error, response) => {
+    //     if (error) {
+    //         console.log(error);
+    //     }
+    //     else {
+    //         console.log(response);
+    //         callBack();
+                
+    //         // getTransactions(callBack)
+    //     }
+    // })
+
+    // transactions = null;
 
 }
 
@@ -142,18 +168,19 @@ let getTransactions = (callBack, id) => {
 
 //{$or:[{make:"Mohammad"},{additionaInformation:{$elemMatch:{byerID:"Mohammad"}}}]}
     // transactions.find({ transactionOwner: id }, (error, response) => {
-  
+
         transactions.find({$or:[{transactionOwner: id},{additionaInformation:{$elemMatch:{buyerID:id}}}]}, (error, response) => {
-        if (error) {
+      
+            if (error) {
             console.log(error);
         }
         else {
             // console.log(response)
-            callBack(response , id)
+            callBack(response)
         }
 
     })
-
+  
 }
 
 

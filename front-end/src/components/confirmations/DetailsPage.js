@@ -40,14 +40,14 @@ export default class DetailsPage extends Component {
                 return <h2 key={i}><input style={{width : "100%"}} value={keys+ ":" + this.state.detailsValue[i]}></input></h2>
             })}
          
-{console.log(this.state.detailsKey)}
 
 
-          {JSON.stringify(this.props.location.state && this.props.location.state.additionalInformation || "no data found")}
-          {/* {console.log(this.props.location.state)} */}
+          {/* {JSON.stringify(this.props.location.state && this.props.location.state.additionalInformation || "no data found")} */}
              </>
         )
         
     
     }
 }
+//{console.log(this.state.detailsKey)}
+ 
